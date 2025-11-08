@@ -37,6 +37,29 @@ def clean_columns(df):
     
     return df
 
+def clean_degree(df):
+    if 'Degree' in df.columns:
+        # Standardize text
+        df['Degree'] = df['Degree'].astype(str).str.lower().str.strip()
+
+        # Remove rows where Degree is "other" or "others"
+        df = df[~df['Degree'].str.contains('other', na=False)]
+
+        
+    return df
+
+
+def clean_dietary_habits(df):
+    if 'Dietary_Habits' in df.columns:
+        # Standardize text: lowercase and strip spaces
+        df['Dietary_Habits'] = df['Dietary_Habits'].astype(str).str.lower().str.strip()
+
+        # Remove rows where Dietary_Habits is "other" or "others"
+        df = df[~df['Dietary_Habits'].str.contains('other', na=False)]
+
+    return df
+
+
 def clean_sleep_duration(df):
     if 'Sleep_Duration' in df.columns:
         # Remove quotes, lowercase, strip spaces
@@ -56,13 +79,32 @@ def clean_sleep_duration(df):
 
     return df
 
+def clean_CGPA(df):
+    if 'CGPA' in df.columns:
+        # Remove quotes, strip spaces
+        df['CGPA'] = df['CGPA'].astype(str).str.replace("'", "").str.strip()
 
+        # Remove rows with invalid entries (non-numeric)
+        df = df[df['CGPA'].str.replace('.', '', 1).str.isnumeric()]
+
+        # Convert to float
+        df['CGPA'] = df['CGPA'].astype(float)
+
+        # Round CGPA to nearest integer
+        df['CGPA'] = df['CGPA'].apply(lambda x: math.floor(x) + 1 if (x - math.floor(x)) >= 0.5 else math.floor(x))
+
+    return df
 
 
 def clean_values(df):
     
     df = clean_sleep_duration(df)
+
     df = clean_CGPA(df)
+
+    df = clean_dietary_habits(df)
+    df = clean_degree(df)
+
 
     return df
 
@@ -89,21 +131,7 @@ def main():
     
     print("\n Done! Cleaned dataset saved to 'data/processed/student_depression_cleaned.csv'.")
 
-def clean_CGPA(df):
-    if 'CGPA' in df.columns:
-        # Remove quotes, strip spaces
-        df['CGPA'] = df['CGPA'].astype(str).str.replace("'", "").str.strip()
 
-        # Remove rows with invalid entries (non-numeric)
-        df = df[df['CGPA'].str.replace('.', '', 1).str.isnumeric()]
-
-        # Convert to float
-        df['CGPA'] = df['CGPA'].astype(float)
-
-        # Round CGPA to nearest integer
-        df['CGPA'] = df['CGPA'].apply(lambda x: math.floor(x) + 1 if (x - math.floor(x)) >= 0.5 else math.floor(x))
-
-    return df
 
 if __name__ == "__main__":
     main()
