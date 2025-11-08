@@ -6,7 +6,6 @@ def load_and_preview_data():
     path = "data/raw/student_depression_dataset.csv"
     df = pd.read_csv(path)
 
-    print("✅ Dataset loaded successfully")
     print("\nFirst 5 rows:")
     print(df.head())
 
