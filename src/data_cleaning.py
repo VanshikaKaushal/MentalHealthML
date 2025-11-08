@@ -1,4 +1,4 @@
-# src/data_cleaning.py
+# This file cleans the raw data.
 import math
 import pandas as pd
 
@@ -48,7 +48,7 @@ def create_DegreeCategory(df):
             "m.tech": "Graduate",
             "ma": "Graduate",
             "mba": "Graduate",
-            "mbbs": "STEM",
+            "mbbs": "STEM_Bach",
             "mca": "Graduate",
             "md": "Graduate",
             "me": "Graduate",
