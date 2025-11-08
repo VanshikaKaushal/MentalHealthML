@@ -8,9 +8,8 @@ def load_data(path="data/raw/student_depression_dataset.csv"):
     return df
 
 
-def preview_data(df):
-    """Prints basic info and a quick overview of the dataset."""
-    print("\n First 5 rows:")
+    print("✅ Dataset loaded successfully")
+    print("\nFirst 5 rows:")
     print(df.head())
     
     print("\n Shape:", df.shape)
