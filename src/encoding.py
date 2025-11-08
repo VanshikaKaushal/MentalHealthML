@@ -12,7 +12,15 @@ def binaryConvert(df, columnName):
     return df
 
 
-def oneHotEncoding(df):
+def oneHotEncoding(df, list):
+
+    return df
+ 
+
+def mapToNumber(df, list, columnName):
+    
+    for i in range(len(list))
+        
 
     return df
 
@@ -25,11 +33,14 @@ def dataEncoded(df, list):
     Gender = ['Male', 'Female']
     Degree = ['STEM_Bach' , 'Business', 'Arts', 'HighSchool', 'Graduate', 'PhD']
 
-    df = oneHotEncoding(df, Gender)
-    df = oneHotEncoding(df, Degree)
+    df = oneHotEncoding(df, Gender, 'Gender')
+    df = oneHotEncoding(df, Degree, 'Degree')
 
     #Ordinal Columns 
     SleepDuration = ['<5','5-6','6-7','7-8','>8']
+    DietaryHabits = ['unhealthy', 'moderate', 'healthy']
+
+    
 
         
     return df
