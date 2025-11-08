@@ -17,6 +17,51 @@ def load_data(path="data/raw/student_depression_dataset.csv"):
     print(df.isnull().sum())
     return df
 
+def create_DegreeCategory(df):
+    """
+    Creates a new column 'Degree_Category' based on the 'Degree' column.
+    Groups degrees into broader categories like STEM, Arts, Business, Graduate, High School, PhD.
+    """
+    if 'Degree' in df.columns:
+        # Standardize degree text
+        df['Degree'] = df['Degree'].astype(str).str.lower().str.strip().str.replace("'", "")
+
+        # Mapping from specific degrees to broader categories
+        degree_mapping = {
+            "b.arch": "STEM_Bach",
+            "b.com": "Business",
+            "b.ed": "Arts",
+            "class 12": "HighSchool",
+            "b.pharm": "STEM_Bach",
+            "b.tech": "STEM_Bach",
+            "b.a": "Arts",
+            "bba": "Business",
+            "bca": "STEM_Bach",
+            "be": "STEM_Bach",
+            "bhm": "Arts",
+            "bsc": "STEM_Bach",
+            "llb": "Arts",
+            "llm": "Graduate",
+            "m.com": "Graduate",
+            "m.ed": "Graduate",
+            "m.pharm": "Graduate",
+            "m.tech": "Graduate",
+            "ma": "Graduate",
+            "mba": "Graduate",
+            "mbbs": "STEM",
+            "mca": "Graduate",
+            "md": "Graduate",
+            "me": "Graduate",
+            "mhm": "Graduate",
+            "mac": "Graduate",
+            "phd": "PhD"
+        }
+
+        # Create the new column and fill unmapped values with 'Other'
+        df['Degree_Category'] = df['Degree'].map(degree_mapping).fillna("Other")
+
+    return df
+
 
 def clean_columns(df):
     """Cleans and prepares columns for analysis."""
@@ -104,6 +149,7 @@ def clean_values(df):
 
     df = clean_dietary_habits(df)
     df = clean_degree(df)
+    df = create_DegreeCategory(df)
 
 
     return df
