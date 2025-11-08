@@ -5,10 +5,6 @@ import pandas as pd
 def load_data(path="data/raw/student_depression_dataset.csv"):
     """Loads the dataset from a CSV file."""
     df = pd.read_csv(path)
-    return df
-
-
-    print("✅ Dataset loaded successfully")
     print("\nFirst 5 rows:")
     print(df.head())
     
@@ -19,6 +15,7 @@ def load_data(path="data/raw/student_depression_dataset.csv"):
     
     print("\n Missing values per column:")
     print(df.isnull().sum())
+    return df
 
 
 def clean_columns(df):
@@ -75,8 +72,6 @@ def main():
     print(" Loading dataset...")
     df = load_data(path)
     
-    print("\n Preview before cleaning:")
-    preview_data(df)
     
     print("\n🧹 Cleaning columns...")
     df_cleaned = clean_columns(df)
