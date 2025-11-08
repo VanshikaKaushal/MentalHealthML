@@ -37,6 +37,29 @@ def clean_columns(df):
     
     return df
 
+def clean_degree(df):
+    if 'Degree' in df.columns:
+        # Standardize text
+        df['Degree'] = df['Degree'].astype(str).str.lower().str.strip()
+
+        # Remove rows where Degree is "other" or "others"
+        df = df[~df['Degree'].str.contains('other', na=False)]
+
+        
+    return df
+
+
+def clean_dietary_habits(df):
+    if 'Dietary_Habits' in df.columns:
+        # Standardize text: lowercase and strip spaces
+        df['Dietary_Habits'] = df['Dietary_Habits'].astype(str).str.lower().str.strip()
+
+        # Remove rows where Dietary_Habits is "other" or "others"
+        df = df[~df['Dietary_Habits'].str.contains('other', na=False)]
+
+    return df
+
+
 def clean_sleep_duration(df):
     if 'Sleep_Duration' in df.columns:
         # Remove quotes, lowercase, strip spaces
@@ -62,6 +85,8 @@ def clean_sleep_duration(df):
 def clean_values(df):
     
     df = clean_sleep_duration(df)
+    df = clean_dietary_habits(df)
+    df = clean_degree(df)
 
     return df
 
