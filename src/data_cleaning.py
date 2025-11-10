@@ -60,6 +60,8 @@ def create_DegreeCategory(df):
         # Create the new column and fill unmapped values with 'Other'
         df['Degree_Category'] = df['Degree'].map(degree_mapping).fillna("Other")
 
+        df = df.drop(columns=['Degree'])
+
     return df
 
 
