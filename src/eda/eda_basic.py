@@ -10,7 +10,7 @@ import seaborn as sns
 sns.set(style="whitegrid")
 
 # Output directory for saving plots
-OUTPUT_DIR = "../outputs/eda_plots"
+OUTPUT_DIR = "results/eda_results/"
 
 # Ensure directory exists
 os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -54,7 +54,7 @@ def target_distribution(df, target='Depression'):
 #                LOAD DATA
 # ====================================================
 
-def load_data(path='../data/cleaned/student_depression_cleaned.csv'):
+def load_data(path='data/cleaned/student_depression_cleaned.csv'):
     df = pd.read_csv(path)
     return df
 
