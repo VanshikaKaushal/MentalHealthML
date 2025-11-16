@@ -10,7 +10,7 @@ import seaborn as sns
 sns.set(style="whitegrid")
 
 # Output directory for saving plots
-OUTPUT_DIR = "../outputs/eda_plots"
+OUTPUT_DIR = "results/eda_results/"
 
 # Ensure directory exists
 os.makedirs(OUTPUT_DIR, exist_ok=True)
