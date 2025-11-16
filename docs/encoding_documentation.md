@@ -1,6 +1,6 @@
 # Data Encoding Module Documentation
 
-**File:** `src/data_encoding.py`  
+**Target File:** `src/data_encoding.py`  
 **Purpose:** Encode the cleaned student depression dataset so that all columns are fully numeric and ready for machine learning. Includes methods for binary conversion, one-hot encoding, and ordinal mapping.
 
 ---
