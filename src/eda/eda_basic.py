@@ -1,4 +1,4 @@
-# eda.py
+# eda_basic.py
 import os
 import pandas as pd
 import matplotlib
@@ -22,6 +22,7 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 def check_duplicates(df):
     duplicates = df.duplicated().sum()
     print(f"Number of duplicate rows: {duplicates}\n")
+    return duplicates
 
 def unique_values_summary(df):
     print("\nUnique values per column:")
@@ -42,7 +43,6 @@ def target_distribution(df, target='Depression'):
     plt.title('Depression Distribution')
     plt.xlabel('Depression (0=No, 1=Yes)')
     plt.ylabel('Count')
-
     plt.savefig(f"{OUTPUT_DIR}/target_distribution.png", bbox_inches='tight')
     plt.close()
     print("Saved plot: target_distribution.png")
@@ -81,10 +81,8 @@ def data_overview(df):
 def plot_correlation_heatmap(df):
     numeric_cols = df.select_dtypes(include=['int64', 'float64']).columns.tolist()
     plt.figure(figsize=(10, 8))
-
     corr = df[numeric_cols].corr()
     sns.heatmap(corr, annot=True, cmap="coolwarm", fmt=".2f")
-
     plt.title("Correlation Heatmap")
     plt.savefig(f"{OUTPUT_DIR}/correlation_heatmap.png", bbox_inches='tight')
     plt.close()
@@ -97,22 +95,15 @@ def plot_correlation_heatmap(df):
 def plot_numeric(df, numeric_cols, target='Depression'):
     for col in numeric_cols:
         plt.figure(figsize=(18, 5))
-
-        # Histogram
         plt.subplot(1, 3, 1)
         sns.histplot(df[col], kde=True, bins=20)
         plt.title(f'Histogram of {col}')
-
-        # Boxplot
         plt.subplot(1, 3, 2)
         sns.boxplot(x=df[col])
         plt.title(f'Boxplot of {col}')
-
-        # Boxplot vs target
         plt.subplot(1, 3, 3)
         sns.boxplot(x=target, y=col, data=df)
         plt.title(f'{col} vs {target}')
-
         plt.tight_layout()
         filename = f"{OUTPUT_DIR}/{col}_numeric_plots.png"
         plt.savefig(filename, bbox_inches='tight')
@@ -126,11 +117,9 @@ def plot_numeric(df, numeric_cols, target='Depression'):
 def plot_categorical_vs_target(df, categorical_cols, target='Depression'):
     for col in categorical_cols:
         plt.figure(figsize=(7, 4))
-
         sns.countplot(data=df, x=col, hue=target, palette="Set2")
         plt.title(f'{col} vs {target}')
         plt.xticks(rotation=45)
-
         plt.tight_layout()
         filename = f"{OUTPUT_DIR}/{col}_categorical_plot.png"
         plt.savefig(filename, bbox_inches='tight')
@@ -145,12 +134,18 @@ if __name__ == "__main__":
     # Load data
     df = load_data()
 
-    # Remove duplicate rows
-    num_duplicates = df.duplicated().sum()
+    # Check and remove duplicates
+    num_duplicates = check_duplicates(df)
     if num_duplicates > 0:
         print(f"Removing {num_duplicates} duplicate rows...")
         df = df.drop_duplicates()
-        print(f"New dataset shape after removing duplicates: {df.shape}\n")
+        print(f"New dataset shape: {df.shape}")
+        # Save a duplicate-free CSV for future use
+        cleaned_path = "../../data/cleaned/student_depression_final.csv"
+        df.to_csv(cleaned_path, index=False)
+        print(f"Duplicate-free dataset saved at: {cleaned_path}\n")
+    else:
+        print("No duplicates found. Using dataset as-is.\n")
 
     # Overview
     data_overview(df)
@@ -159,7 +154,6 @@ if __name__ == "__main__":
     numeric_cols = df.select_dtypes(include=['int64', 'float64']).columns.tolist()
     if 'Depression' in numeric_cols:
         numeric_cols.remove('Depression')
-
     categorical_cols = df.select_dtypes(include=['object']).columns.tolist()
 
     # Generate plots
@@ -169,7 +163,6 @@ if __name__ == "__main__":
     plot_categorical_vs_target(df, categorical_cols)
 
     # Basic checks
-    check_duplicates(df)
     unique_values_summary(df)
 
     print(f"\nAll plots saved to: {OUTPUT_DIR}")
