@@ -15,7 +15,6 @@ OUTPUT_DIR = "results/eda_results/"
 # Ensure directory exists
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-
 # ====================================================
 #                  BASIC CHECKS
 # ====================================================
@@ -24,13 +23,11 @@ def check_duplicates(df):
     duplicates = df.duplicated().sum()
     print(f"Number of duplicate rows: {duplicates}\n")
 
-
 def unique_values_summary(df):
     print("\nUnique values per column:")
     for col in df.columns:
         print(f"{col}: {df[col].nunique()} unique values")
     print("\n")
-
 
 # ====================================================
 #      TARGET DISTRIBUTION (SAVED PLOT)
@@ -48,7 +45,7 @@ def target_distribution(df, target='Depression'):
 
     plt.savefig(f"{OUTPUT_DIR}/target_distribution.png", bbox_inches='tight')
     plt.close()
-
+    print("Saved plot: target_distribution.png")
 
 # ====================================================
 #                LOAD DATA
@@ -57,7 +54,6 @@ def target_distribution(df, target='Depression'):
 def load_data(path='data/cleaned/student_depression_cleaned.csv'):
     df = pd.read_csv(path)
     return df
-
 
 # ====================================================
 #                DATA OVERVIEW
@@ -78,7 +74,6 @@ def data_overview(df):
     print("Missing values:")
     print(df.isnull().sum(), "\n")
 
-
 # ====================================================
 #         CORRELATION HEATMAP (SAVED PLOT)
 # ====================================================
@@ -91,10 +86,9 @@ def plot_correlation_heatmap(df):
     sns.heatmap(corr, annot=True, cmap="coolwarm", fmt=".2f")
 
     plt.title("Correlation Heatmap")
-
     plt.savefig(f"{OUTPUT_DIR}/correlation_heatmap.png", bbox_inches='tight')
     plt.close()
-
+    print("Saved plot: correlation_heatmap.png")
 
 # ====================================================
 #      NUMERIC FEATURE DISTRIBUTIONS (SAVED PLOTS)
@@ -120,9 +114,10 @@ def plot_numeric(df, numeric_cols, target='Depression'):
         plt.title(f'{col} vs {target}')
 
         plt.tight_layout()
-        plt.savefig(f"{OUTPUT_DIR}/{col}_numeric_plots.png", bbox_inches='tight')
+        filename = f"{OUTPUT_DIR}/{col}_numeric_plots.png"
+        plt.savefig(filename, bbox_inches='tight')
         plt.close()
-
+        print(f"Saved numeric plot: {filename}")
 
 # ====================================================
 #     CATEGORICAL FEATURES vs TARGET (SAVED PLOTS)
@@ -137,9 +132,10 @@ def plot_categorical_vs_target(df, categorical_cols, target='Depression'):
         plt.xticks(rotation=45)
 
         plt.tight_layout()
-        plt.savefig(f"{OUTPUT_DIR}/{col}_categorical_plot.png", bbox_inches='tight')
+        filename = f"{OUTPUT_DIR}/{col}_categorical_plot.png"
+        plt.savefig(filename, bbox_inches='tight')
         plt.close()
-
+        print(f"Saved categorical plot: {filename}")
 
 # ====================================================
 #                  MAIN EXECUTION
@@ -148,6 +144,13 @@ def plot_categorical_vs_target(df, categorical_cols, target='Depression'):
 if __name__ == "__main__":
     # Load data
     df = load_data()
+
+    # Remove duplicate rows
+    num_duplicates = df.duplicated().sum()
+    if num_duplicates > 0:
+        print(f"Removing {num_duplicates} duplicate rows...")
+        df = df.drop_duplicates()
+        print(f"New dataset shape after removing duplicates: {df.shape}\n")
 
     # Overview
     data_overview(df)
