@@ -12,3 +12,5 @@ We have imported our dataset from kaggle. Here is the link for our dataset -
 ### STEP 2 : Cleaning the dataset
 
 ### STEP 3 : Exploratory Data Analysis
+
+### STEP 4 : Splitting the trainig and testing data
