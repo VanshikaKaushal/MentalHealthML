@@ -1,6 +1,7 @@
 # This file cleans the raw data.
 import math
 import pandas as pd
+import numpy as np
 
 def load_data(path="data/raw/student_depression_dataset.csv"):
     """Loads the dataset from a CSV file."""
@@ -142,6 +143,22 @@ def clean_CGPA(df):
 
     return df
 
+def clean_numeric_columns(df):
+    # Identify numeric columns
+    numeric_cols = ['Age', 'Academic_Pressure', 'Study_Satisfaction', 'CGPA', 'Work_Study_Hours', 'Financial_Stress','Depression']  # add more if needed
+    
+    for col in numeric_cols:
+        if col in df.columns:
+            # Replace '?' with NaN
+            df[col] = df[col].replace('?', np.nan)
+            
+            # Convert to float
+            df[col] = df[col].astype(float)
+            
+            # Fill missing values with column mean
+            df[col] = df[col].fillna(df[col].mean())
+    
+    return df
 
 def clean_values(df):
     
@@ -152,7 +169,7 @@ def clean_values(df):
     df = clean_dietary_habits(df)
     df = clean_degree(df)
     df = create_DegreeCategory(df)
-
+    df = clean_numeric_columns(df)
 
     return df
 
