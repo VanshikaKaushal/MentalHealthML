@@ -24,3 +24,4 @@ X_test.to_csv("data/testing/X_test.csv", index=False)
 y_train.to_csv("data/training/y_train.csv", index=False)
 y_test.to_csv("data/testing/y_test.csv", index=False)
 
+##rename this script to split_data.py
