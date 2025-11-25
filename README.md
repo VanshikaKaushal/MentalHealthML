@@ -1,5 +1,6 @@
 # Student Depression Prediction Using Machine Learning
 
+Contributors : Amanda Lan and Vanshika Kaushal
 
 ## 1. Introduction
 
