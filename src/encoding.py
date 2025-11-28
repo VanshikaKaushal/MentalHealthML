@@ -50,10 +50,11 @@ def dataEncoded(df):
     return df
 
 def main():
-    path = "data/cleaned/student_depression_cleaned.csv"
+    path = "../data/cleaned/student_depression_cleaned.csv"
     df = pd.read_csv(path)
     df_encoded = dataEncoded(df)
-    df_encoded.to_csv("data/encoded/student_depression_encoded.csv", index=False)
+    df_encoded.to_csv("../data/encoded/student_depression_encoded.csv", index=False)
 
 if __name__ == "__main__":
     main()
+
