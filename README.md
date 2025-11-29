@@ -48,51 +48,51 @@ Once the dataset was encoded using the full encoding pipeline (`data_encoding.py
 ### 2.2 Key Observations from EDA
 - Important patterns from numeric features
 
-Academic_Pressure — strong positive separation: depressed students report substantially higher pressure (median ≈ 3.69 vs 2.36). One of the strongest numeric predictors.
+   - Academic_Pressure — strong positive separation: depressed students report substantially higher pressure (median ≈ 3.69 vs 2.36). One of the strongest numeric predictors.
 
-Study_Satisfaction — strong negative separation: depressed students report lower satisfaction (mean ≈ 2.75 vs 3.21); statistically highly significant and a top predictor.
+   - Study_Satisfaction — strong negative separation: depressed students report lower satisfaction (mean ≈ 2.75 vs 3.21); statistically highly significant and a top predictor.
 
-Work_Study_Hours — depressed students spend more hours (median ≈ 8 vs 6); distribution shifted upward for the depressed group, indicating workload as a relevant factor.
+   - Work_Study_Hours — depressed students spend more hours (median ≈ 8 vs 6); distribution shifted upward for the depressed group, indicating workload as a relevant factor.
 
-CGPA — virtually identical distributions across groups; weak predictor despite being an academic outcome.
+   - CGPA — virtually identical distributions across groups; weak predictor despite being an academic outcome.
 
-Age — dataset concentrated on 18–30; younger students are slightly more likely to be depressed, but age offers only modest predictive value.
+   - Age — dataset concentrated on 18–30; younger students are slightly more likely to be depressed, but age offers only modest predictive value.
 
 - Significant categorical trends 
 
-Have_you_ever_had_suicidal_thoughts_ — very strong differentiator: the majority of depressed cases report suicidal thoughts (very high overlap); behaves like a proxy for severe depression.
+   - Have_you_ever_had_suicidal_thoughts_ — very strong differentiator: the majority of depressed cases report suicidal thoughts (very high overlap); behaves like a proxy for severe depression.
 
-Financial_Stress — clear monotonic relationship: higher financial stress → substantially higher depression prevalence (level 5 heavily skewed to depressed).
+   - Financial_Stress — clear monotonic relationship: higher financial stress → substantially higher depression prevalence (level 5 heavily skewed to depressed).
 
-Dietary_Habits — healthier diets associate with lower depression rates; unhealthy diet shows markedly higher depression prevalence.
+   - Dietary_Habits — healthier diets associate with lower depression rates; unhealthy diet shows markedly higher depression prevalence.
 
-Sleep_Duration — short sleep (<5 hours) associates with higher depression; relationship is non-linear and interacts with stress/workload.
+   - Sleep_Duration — short sleep (<5 hours) associates with higher depression; relationship is non-linear and interacts with stress/workload.
 
-Degree_Category — lower educational categories (HighSchool) and STEM_Bach show elevated depression counts; Graduate category is more balanced.
+   - Degree_Category — lower educational categories (HighSchool) and STEM_Bach show elevated depression counts; Graduate category is more balanced.
 
 - Correlation heatmap findings  
 
-Mental-health cluster: Depression, Anxiety, and Stress are tightly positively correlated.
+   - Mental-health cluster: Depression, Anxiety, and Stress are tightly positively correlated.
 
-Positive correlates with Depression: Academic_Pressure, Financial_Stress, Work_Study_Hours (moderate correlations).
+   - Positive correlates with Depression: Academic_Pressure, Financial_Stress, Work_Study_Hours (moderate correlations).
 
-Negative correlates with Depression: Study_Satisfaction and sleep-related quality/quantity show moderate negative correlations.
+   - Negative correlates with Depression: Study_Satisfaction and sleep-related quality/quantity show moderate negative correlations.
 
-Weak correlations: CGPA shows little-to-no positive correlation with Depression and is negatively correlated with Academic_Pressure.
+   - Weak correlations: CGPA shows little-to-no positive correlation with Depression and is negatively correlated with Academic_Pressure.
 
-No contradictory correlations detected; patterns align with expected psychological relationships.
+   - No contradictory correlations detected; patterns align with expected psychological relationships.
 
 - Any surprising or important insights  
 
-Academic performance (CGPA) is not a driver of depression here — subjective measures (pressure, satisfaction) matter far more than grades.
+   - Academic performance (CGPA) is not a driver of depression here — subjective measures (pressure, satisfaction) matter far more than grades.
 
-Suicidal ideation behaves as the largest categorical differentiator and should be treated carefully in modeling and ethical review (high-risk flag).
+   - Suicidal ideation behaves as the largest categorical differentiator and should be treated carefully in modeling and ethical review (high-risk flag).
 
-Multiple stress-related variables cluster together (pressure, financial stress, work hours, low sleep, low satisfaction), indicating modeling should prioritize these features and consider interaction terms.
+   - Multiple stress-related variables cluster together (pressure, financial  stress, work hours, low sleep, low satisfaction), indicating modeling should prioritize these features and consider interaction terms.
 
-Class imbalance: the target is imbalanced (≈58.6% depressed); use class-weighting, resampling, or appropriate metrics (F1/precision–recall) during model development.
+   - Class imbalance: the target is imbalanced (≈58.6% depressed); use class-weighting, resampling, or appropriate metrics (F1/precision–recall) during model development.
 
-Data quality is high: no missing values or duplicates, enabling direct modeling without imputation.
+   - Data quality is high: no missing values or duplicates, enabling direct modeling without imputation.
 
 ---
 
