@@ -3,6 +3,49 @@ import pandas as pd
 import pickle
 import os
 
+
+st.markdown("""
+<style>
+/* ===== Make ALL widget labels darker ===== */
+.stSelectbox label,
+.stNumberInput label,
+.stSlider label,
+.stMultiSelect label,
+.stTextInput label,
+.stRadio label,
+.stCheckbox label,
+.stDateInput label,
+.stColorPicker label,
+.stTimeInput label,
+label {
+    color: #1a1a1a !important;   /* dark charcoal */
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+}
+
+/* ===== Sidebar labels ===== */
+section[data-testid="stSidebar"] label {
+    color: #1a1a1a !important;
+}
+
+/* ===== Sidebar title ("Input Student Information") ===== */
+/* This targets st.sidebar.title() */
+section[data-testid="stSidebar"] h1,
+section[data-testid="stSidebar"] h2,
+section[data-testid="stSidebar"] h3 {
+    color: #1a1a1a !important;
+    font-weight: 700 !important;
+}
+
+/* Optional: make font slightly cleaner */
+section[data-testid="stSidebar"] h2 {
+    font-size: 1.3rem !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
+
 # ------------------------------------
 # Load Model
 # ------------------------------------
@@ -26,13 +69,25 @@ st.markdown(
     <style>
     /* Main app background */
     .stApp {
-        background-color: #f0f8ff;  /* Alice Blue */
+        background-color: #f0f8ff;  
         color: #000000;
     }
 
     /* Sidebar background */
-    .css-1d391kg {
-        background-color: #e6f2ff;  /* Pale blue */
+    [data-testid="stSidebar"],
+    [data-testid="stSidebar"] > div:first-child {
+        background-color: #e6f2ff !important; 
+    }
+    
+    /* Sidebar width */
+    [data-testid="stSidebar"] {
+        min-width: 340px !important;
+        max-width: 340px !important;
+    }
+    
+    [data-testid="stSidebar"] .block-container {
+        padding-left: 20px;
+        padding-right: 20px;
     }
 
     /* Customize button */
@@ -46,13 +101,15 @@ st.markdown(
 )
 
 
-st.title("🎓 Student Depression Risk Prediction")
+
+
+st.title("Student Depression Risk Prediction")
 st.write(
     "Use this tool to estimate the likelihood of depression based on academic, lifestyle, and personal factors."
 )
 
 st.info(
-    "⚠️ This tool is **not a medical diagnosis**. It is a machine-learning model intended for educational use only."
+    "This tool is **not a medical diagnosis**. It is a machine-learning model intended for educational use only."
 )
 
 # ------------------------------------

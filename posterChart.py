@@ -62,7 +62,7 @@ pastel_colors = [
     "#BAE1FF",  # Blue
     "#E2BAFF"   # Purple
 ]
-cmap = mcolors.LinearSegmentedColormap.from_list("pastel_rainbow", pastel_colors, N=256)
+cmap = mcolors.LinearSegmentedColormap.from_list(pastel_colors, N=256)
 colors = cmap(norm)
 
 # Plot
